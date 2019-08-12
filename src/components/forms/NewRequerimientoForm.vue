@@ -17,11 +17,11 @@
     <form>
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
-          <v-flex xs2 sm1>
+          <!-- <v-flex xs2 sm1>
             <v-text-field v-model="this.editItem.idRequerimiento" label="Código" readonly></v-text-field>
-          </v-flex>
+          </v-flex>-->
           <!--INICIO: FECHA REQUERIMIENTO -->
-          <v-flex xs3 sm3>
+          <!-- <v-flex xs3 sm3>
             <v-menu>
               <v-text-field
                 :value="formattedDateRequerimiento"
@@ -31,7 +31,7 @@
               ></v-text-field>
               <v-date-picker v-model="editItem.fechaRequerimiento"></v-date-picker>
             </v-menu>
-          </v-flex>
+          </v-flex>-->
           <!--FIN : FECHA REQUERIMIENTO -->
 
           <!--INICIO: FECHA IDA -->
@@ -169,7 +169,7 @@ export default {
     createFreshRequerimientoObject () {
       return {
         idRequerimiento: 0,
-        fechaRequerimiento: null,
+        fechaRequerimiento: Date.now(),
         fechaIda: null,
         fechaRetorno: null,
         descripcion: '',

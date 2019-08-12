@@ -47,6 +47,7 @@
         <td class="text-xs-center">{{ props.item.idTrabajador }}</td>
         <td class="text-xs-center">{{ props.item.dni }}</td>
         <td class="text-xs-center">{{ props.item.nombres }}</td>
+        <td class="text-xs-center">{{ props.item.unidad.nombre }}</td>
 
         <td class="justify-text text-xs-left">
           <v-icon @click="deleteItem(props.item)">delete</v-icon>
@@ -80,7 +81,7 @@ export default {
         { text: 'Codigo', value: 'idTrabajador', align: 'center' },
         { text: 'DNI', value: 'dni', align: 'center' },
         { text: 'Empleado', value: 'nombres', align: 'center' },
-
+        { text: 'Unidad', value: 'unidad', align: 'center' },
         { text: 'Mostrar', value: 'name', sortable: false }
       ],
       items: this.trabajadores,
@@ -89,7 +90,7 @@ export default {
       // Para el dialog
       editItem: {},
       dialog: false,
-      selectTripulante: { idTrabajador: '', nombres: '' }
+      selectTripulante: { idTrabajador: '', nombres: '', unidad: '' }
     }
   },
   methods: {

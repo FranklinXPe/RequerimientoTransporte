@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Mis Solicitudes</h1>
+    <FiltroBusqueda v-on:process="filtrar($event)"></FiltroBusqueda>
     <!-- Este componente es usado para enfocar y centrar la pagina o el contenido que lleva (patron doble container)
     o darle un prop fluid que se extiende por completo en todo el ancho-->
     <v-container class="my-1">
@@ -13,11 +14,34 @@
 import format from 'date-fns/format';
 import SolicudVehiculoGrid from '@/components/grids/SolicudVehiculoGrid.vue';
 import { mapGetters } from 'vuex';
+import FiltroBusqueda from '@/components/filtro/FiltroBusquedaSolicitudes.vue';
 export default {
   name: 'app-solicitud-vehiculo',
-  components: { SolicudVehiculoGrid },
+  components: { SolicudVehiculoGrid, FiltroBusqueda },
+  data () {
+    return {
+      requerimientos: []
+    }
+  },
 
-  mounted () {
+  methods: {
+    filtrar (event) {
+      if (event.evento !== 'todos') {
+        // Lo filtramos por el rango de fechas
+        this.$store.dispatch('fetchRequerimientosByUsuarioEntreFechas', {
+          usuario: this.getUsuario,
+          data: event
+        })
+      } else {
+        // Mostramos todos los registros
+        this.$store.dispatch(
+          'fetchRequerimientosByUsuario',
+          this.getUsuario.idUsuario
+        )
+      }
+    }
+  },
+  created () {
     this.$store.dispatch(
       'fetchRequerimientosByUsuario',
       this.getUsuario.idUsuario

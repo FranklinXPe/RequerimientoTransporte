@@ -117,6 +117,14 @@ export default {
   getRequerimientosOrdenadoIdRequerimientoDescendente () {
     return apiClient.get('/requerimiento/all/descendente')
   },
+  getRequerimientosEntreFechas (fechaInicio, fechaFin) {
+    console.log('parametros para enviar:' + fechaInicio + ' ' + fechaFin)
+    return apiClient.get('/requerimiento/all/solicitudes?fi=' + fechaInicio + '&ff=' + fechaFin)
+  },
+  getRequerimientosPorUsuarioEntreFechas (usuarioTrabajador, fechaInicio, fechaFin) {
+    console.log('parametros para enviar:' + fechaInicio + ' ' + fechaFin)
+    return apiClient.get('/requerimiento/usuario/' + usuarioTrabajador.idUsuario + '/fecha?fi=' + fechaInicio + '&ff=' + fechaFin)
+  },
   getRequerimiento (id) {
     return apiClient.get('/requerimiento/' + id)
   },

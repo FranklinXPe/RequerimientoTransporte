@@ -6,17 +6,17 @@ export default {
     requerimiento: {}
   },
   mutations: {
-    ADD_REQUERIMIENTO(state, requerimiento) {
+    ADD_REQUERIMIENTO (state, requerimiento) {
       state.requerimientos.push(requerimiento)
     },
-    SET_REQUERIMIENTOS(state, requerimientos) {
+    SET_REQUERIMIENTOS (state, requerimientos) {
       state.requerimientos = requerimientos
     },
-    SET_REQUERIMIENTO(state, requerimiento) {
+    SET_REQUERIMIENTO (state, requerimiento) {
       state.requerimiento = requerimiento
     },
     // LA PRECONDICION ES QUE EL parametro 'requerimiento' EXISTA EN EL ARRAY (solo se unsa en caso de Actualizar (PUT))
-    UPDATE_REQUERIMIENTOS(state, requerimiento) {
+    UPDATE_REQUERIMIENTOS (state, requerimiento) {
       // Actualiza la data del array 'Trabajadores' en base al trabajador
       for (var i = 0; i < state.requerimientos.length; i++) {
         //  console.log('Contador:' + i)
@@ -29,7 +29,7 @@ export default {
   },
   actions: {
     // Para listar todos los requerimientos
-    fetchRequerimientos({
+    fetchRequerimientos ({
       commit
     }) {
       ApiService.getRequerimientosOrdenadoIdRequerimientoDescendente()
@@ -42,8 +42,20 @@ export default {
         })
     },
 
+    fetchRequerimientosEntreFechas ({
+      commit
+    }, data) {
+      ApiService.getRequerimientosEntreFechas(data.fechaInicio, data.fechaFin)
+        .then(response => {
+          // console.log(response.data)
+          commit('SET_REQUERIMIENTOS', response.data)
+        })
+        .catch(error => {
+          console.log('There was an error', error.message)
+        })
+    },
     // Para listar un requerimiento dependiendo del Id
-    fetchRequerimiento({
+    fetchRequerimiento ({
       commit,
       getters
     }, id) {
@@ -61,9 +73,8 @@ export default {
     },
 
     // Para listar todos los requerimientos por USUARIO
-    fetchRequerimientosByUsuario({
-      commit,
-      getters
+    fetchRequerimientosByUsuario ({
+      commit
     }, idUsuario) {
       ApiService.getRequerimientosByUsuario(idUsuario)
         .then(response => {
@@ -74,8 +85,22 @@ export default {
           console.log('There was an error', error.message)
         })
     },
+    // Para listar todos los requerimientos por USUARIO en un rango de fechas
+    fetchRequerimientosByUsuarioEntreFechas ({
+      commit
+
+    }, eventoUsuarioFecha) {
+      ApiService.getRequerimientosPorUsuarioEntreFechas(eventoUsuarioFecha.usuario, eventoUsuarioFecha.data.fechaInicio, eventoUsuarioFecha.data.fechaFin)
+        .then(response => {
+          // console.log(response.data)
+          commit('SET_REQUERIMIENTOS', response.data)
+        })
+        .catch(error => {
+          console.log('There was an error', error.message)
+        })
+    },
     // Para listar todos los requerimientos por USUARIO
-    fetchRequerimientosByAprobados({
+    fetchRequerimientosByAprobados ({
       commit,
       getters
     }) {
@@ -90,7 +115,7 @@ export default {
     },
 
     // Actualizar los datos de un Requerimiento
-    updateRequerimiento({
+    updateRequerimiento ({
       commit
     }, requerimiento) {
       ApiService.putRequerimiento(requerimiento).then(() => {
@@ -102,7 +127,7 @@ export default {
     },
 
     // Crear los datos de un Requerimiento
-    createRequerimiento({
+    createRequerimiento ({
       commit
     }, requerimiento) {
       ApiService.postRequerimiento(requerimiento).then((response) => {

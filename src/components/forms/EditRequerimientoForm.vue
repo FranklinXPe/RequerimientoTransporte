@@ -22,15 +22,16 @@
           </v-flex>
           <!--INICIO: FECHA REQUERIMIENTO -->
           <v-flex xs3 sm3>
-            <v-menu>
+            <!-- <v-menu>
               <v-text-field
                 :value="formattedDateRequerimiento"
                 slot="activator"
                 label="Requerimiento"
                 prepend-icon="date_range"
               ></v-text-field>
-              <v-date-picker v-model="editItem.fechaRequerimiento"></v-date-picker>
-            </v-menu>
+              <v-date-picker disabled="true" v-model="editItem.fechaRequerimiento" readonly="true"></v-date-picker>
+            </v-menu>-->
+            <v-text-field label="Requerimiento" :value="formattedDateRequerimiento" readonly></v-text-field>
           </v-flex>
           <!--FIN : FECHA REQUERIMIENTO -->
 
